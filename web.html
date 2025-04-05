@@ -1,0 +1,662 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Gaming PC Builder</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* PC Builder Section */
+        .builder-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .components {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00dbde;
+        }
+
+        /* Component Selection */
+        .component-select {
+            margin-bottom: 1.5rem;
+        }
+
+        .component-select label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .component-select select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .component-select select:focus {
+            outline: none;
+            border-color: #00dbde;
+        }
+
+        /* PC Preview */
+        .pc-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .pc-image:hover {
+            transform: scale(1.02);
+        }
+
+        .specs {
+            width: 100%;
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 600;
+        }
+
+        /* Price Section */
+        .price-section {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .total-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fc00ff;
+            margin: 1rem 0;
+        }
+
+        .btn {
+            background: linear-gradient(to right, #00dbde, #fc00ff);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin-top: 3rem;
+        }
+
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #16213e;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #00dbde;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fc00ff;
+        }
+
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .builder-section {
+                flex-direction: column;
+            }
+           
+            .logo {
+                font-size: 2rem;
+            }
+           
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PC Craft</div>
+        <div class="tagline">Build Your Dream Gaming Rig</div>
+    </header>
+
+    <div class="container">
+        <section class="builder-section">
+            <div class="components">
+                <h2>Select Components</h2>
+               
+                <div class="component-select">
+                    <label for="cpu">Processor (CPU)</label>
+                    <select id="cpu">
+                        <option value="" disabled selected>Select CPU</option>
+                        <option value="i9-13900k">Intel Core i9-13900K ($589)</option>
+                        <option value="ryzen9-7950x">AMD Ryzen 9 7950X ($699)</option>
+                        <option value="i7-13700k">Intel Core i7-13700K ($419)</option>
+                        <option value="ryzen7-7800x">AMD Ryzen 7 7800X ($449)</option>
+                    </select>
+                </div>
+               
+                <div class="component-select">
+                    <label for="gpu">Graphics Card (GPU)</label>
+                    <select id="gpu">
+                        <option value="" disabled selected>Select GPU</option>
+                        <option value="rtx4090">NVIDIA RTX 4090 ($1,599)</option>
+                        <option value="rx7900xtx">AMD RX 7900 XTX ($999)</option>
+                        <option value="rtx4080">NVIDIA RTX 4080 ($1,199)</option>
+                        <option value="rx7900xt">AMD RX 7900 XT ($899)</option>
+                    </select>
+                </div>
+               
+                <div class="component-select">
+                    <label for="ram">Memory (RAM)</label>
+                    <select id="ram">
+                        <option value="" disabled selected>Select RAM</option>
+                        <option value="32gb-ddr5">32GB DDR5 6000MHz ($149)</option>
+                        <option value="64gb-ddr5">64GB DDR5 6000MHz ($279)</option>
+                        <option value="16gb-ddr5">16GB DDR5 5600MHz ($89)</option>
+                        <option value="32gb-ddr4">32GB DDR4 3600MHz ($99)</option>
+                    </select>
+                </div>
+               
+                <div class="component-select">
+                    <label for="storage">Storage</label>
+                    <select id="storage">
+                        <option value="" disabled selected>Select Storage</option>
+                        <option value="1tb-nvme">1TB NVMe SSD ($89)</option>
+                        <option value="2tb-nvme">2TB NVMe SSD ($149)</option>
+                        <option value="4tb-nvme">4TB NVMe SSD ($299)</option>
+                        <option value="1tb-nvme+4tb-hdd">1TB NVMe + 4TB HDD ($199)</option>
+                    </select>
+                </div>
+               
+                <div class="component-select">
+                    <label for="case">PC Case</label>
+                    <select id="case">
+                        <option value="" disabled selected>Select Case</option>
+                        <option value="lian-li-o11">Lian Li PC-O11 Dynamic ($149)</option>
+                        <option value="nzxt-h7">NZXT H7 Elite ($179)</option>
+                        <option value="corsair-4000d">Corsair 4000D ($109)</option>
+                        <option value="fractal-torrent">Fractal Design Torrent ($199)</option>
+                    </select>
+                </div>
+               
+                <div class="component-select">
+                    <label for="cooling">Cooling</label>
+                    <select id="cooling">
+                        <option value="" disabled selected>Select Cooling</option>
+                        <option value="aio-360mm">360mm AIO Liquid Cooler ($149)</option>
+                        <option value="aio-240mm">240mm AIO Liquid Cooler ($99)</option>
+                        <option value="air-cooler">Premium Air Cooler ($89)</option>
+                        <option value="custom-loop">Custom Water Loop ($399)</option>
+                    </select>
+                </div>
+            </div>
+           
+            <div class="preview">
+                <h2>Your Build</h2>
+                <img id="pcPreviewImage" src="https://i.pinimg.com/originals/8a/6c/8a/8a6c8a8e4b5f5c5f5e5d5c5b5a595857.jpg" alt="Custom Gaming PC" class="pc-image">
+               
+                <div class="specs">
+                    <div class="spec-item">
+                        <span class="spec-label">CPU:</span>
+                        <span id="cpuSpec">Not selected</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">GPU:</span>
+                        <span id="gpuSpec">Not selected</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">RAM:</span>
+                        <span id="ramSpec">Not selected</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Storage:</span>
+                        <span id="storageSpec">Not selected</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Case:</span>
+                        <span id="caseSpec">Not selected</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Cooling:</span>
+                        <span id="coolingSpec">Not selected</span>
+                    </div>
+                </div>
+               
+                <div class="price-section">
+                    <div>Total Price:</div>
+                    <div class="total-price" id="totalPrice">$0</div>
+                    <button class="btn" id="buildBtn">Build My PC</button>
+                </div>
+            </div>
+        </section>
+       
+        <section class="gallery-section">
+            <h2 class="gallery-title">Gaming PC Inspiration</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="lib/pc4.jpg" alt="RGB Gaming PC" class="gallery-img">
+                    <div class="gallery-caption">RGB Liquid Cooled Build</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="lib/pc7.jpg" alt="Minimalist Gaming PC" class="gallery-img">
+                    <div class="gallery-caption">Minimalist White Build</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="lib/pc13.jpg" alt="High-End Gaming PC" class="gallery-img">
+                    <div class="gallery-caption">High-End Performance Rig</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="lib/pc12.jpg" alt="Custom Loop PC" class="gallery-img">
+                    <div class="gallery-caption">Custom Water Loop</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="lib/pc11.jpg" alt="Compact Gaming PC" class="gallery-img">
+                    <div class="gallery-caption">Compact SFF Build</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="lib/pc10.jpg" alt="Themed Gaming PC" class="gallery-img">
+                    <div class="gallery-caption">Cyberpunk Themed Build</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Support</a>
+            <a href="#">FAQ</a>
+        </div>
+        <div class="copyright">
+            &copy; 2023 PC Craft. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all select elements
+            const cpuSelect = document.getElementById('cpu');
+            const gpuSelect = document.getElementById('gpu');
+            const ramSelect = document.getElementById('ram');
+            const storageSelect = document.getElementById('storage');
+            const caseSelect = document.getElementById('case');
+            const coolingSelect = document.getElementById('cooling');
+           
+            // Get all spec display elements
+            const cpuSpec = document.getElementById('cpuSpec');
+            const gpuSpec = document.getElementById('gpuSpec');
+            const ramSpec = document.getElementById('ramSpec');
+            const storageSpec = document.getElementById('storageSpec');
+            const caseSpec = document.getElementById('caseSpec');
+            const coolingSpec = document.getElementById('coolingSpec');
+            const totalPrice = document.getElementById('totalPrice');
+            const pcPreviewImage = document.getElementById('pcPreviewImage');
+            const buildBtn = document.getElementById('buildBtn');
+           
+            // Component prices
+            const componentPrices = {
+                // CPUs
+                'i9-13900k': 589,
+                'ryzen9-7950x': 699,
+                'i7-13700k': 419,
+                'ryzen7-7800x': 449,
+               
+                // GPUs
+                'rtx4090': 1599,
+                'rx7900xtx': 999,
+                'rtx4080': 1199,
+                'rx7900xt': 899,
+               
+                // RAM
+                '32gb-ddr5': 149,
+                '64gb-ddr5': 279,
+                '16gb-ddr5': 89,
+                '32gb-ddr4': 99,
+               
+                // Storage
+                '1tb-nvme': 89,
+                '2tb-nvme': 149,
+                '4tb-nvme': 299,
+                '1tb-nvme+4tb-hdd': 199,
+               
+                // Cases
+                'lian-li-o11': 149,
+                'nzxt-h7': 179,
+                'corsair-4000d': 109,
+                'fractal-torrent': 199,
+               
+                // Cooling
+                'aio-360mm': 149,
+                'aio-240mm': 99,
+                'air-cooler': 89,
+                'custom-loop': 399
+            };
+           
+            // Component display names
+            const componentNames = {
+                // CPUs
+                'i9-13900k': 'Intel Core i9-13900K',
+                'ryzen9-7950x': 'AMD Ryzen 9 7950X',
+                'i7-13700k': 'Intel Core i7-13700K',
+                'ryzen7-7800x': 'AMD Ryzen 7 7800X',
+               
+                // GPUs
+                'rtx4090': 'NVIDIA RTX 4090',
+                'rx7900xtx': 'AMD RX 7900 XTX',
+                'rtx4080': 'NVIDIA RTX 4080',
+                'rx7900xt': 'AMD RX 7900 XT',
+               
+                // RAM
+                '32gb-ddr5': '32GB DDR5 6000MHz',
+                '64gb-ddr5': '64GB DDR5 6000MHz',
+                '16gb-ddr5': '16GB DDR5 5600MHz',
+                '32gb-ddr4': '32GB DDR4 3600MHz',
+               
+                // Storage
+                '1tb-nvme': '1TB NVMe SSD',
+                '2tb-nvme': '2TB NVMe SSD',
+                '4tb-nvme': '4TB NVMe SSD',
+                '1tb-nvme+4tb-hdd': '1TB NVMe + 4TB HDD',
+               
+                // Cases
+                'lian-li-o11': 'Lian Li PC-O11 Dynamic',
+                'nzxt-h7': 'NZXT H7 Elite',
+                'corsair-4000d': 'Corsair 4000D',
+                'fractal-torrent': 'Fractal Design Torrent',
+               
+                // Cooling
+                'aio-360mm': '360mm AIO Liquid Cooler',
+                'aio-240mm': '240mm AIO Liquid Cooler',
+                'air-cooler': 'Premium Air Cooler',
+                'custom-loop': 'Custom Water Loop'
+            };
+           
+            // Case images
+            const caseImages = {
+                'lian-li-o11': 'pc1.jpg',
+                'nzxt-h7': 'pc2.jpg',
+                'corsair-4000d': 'pc3.jpg',
+                'fractal-torrent': 'pc6.jpg',
+                'default': 'pc5.jpg'
+            };
+           
+            // Function to calculate total price
+            function calculateTotal() {
+                let total = 0;
+               
+                // Add CPU price
+                if (cpuSelect.value) {
+                    total += componentPrices[cpuSelect.value];
+                }
+               
+                // Add GPU price
+                if (gpuSelect.value) {
+                    total += componentPrices[gpuSelect.value];
+                }
+               
+                // Add RAM price
+                if (ramSelect.value) {
+                    total += componentPrices[ramSelect.value];
+                }
+               
+                // Add Storage price
+                if (storageSelect.value) {
+                    total += componentPrices[storageSelect.value];
+                }
+               
+                // Add Case price
+                if (caseSelect.value) {
+                    total += componentPrices[caseSelect.value];
+                }
+               
+                // Add Cooling price
+                if (coolingSelect.value) {
+                    total += componentPrices[coolingSelect.value];
+                }
+               
+                return total;
+            }
+           
+            // Function to update the preview
+            function updatePreview() {
+                // Update CPU spec
+                if (cpuSelect.value) {
+                    cpuSpec.textContent = componentNames[cpuSelect.value];
+                } else {
+                    cpuSpec.textContent = 'Not selected';
+                }
+               
+                // Update GPU spec
+                if (gpuSelect.value) {
+                    gpuSpec.textContent = componentNames[gpuSelect.value];
+                } else {
+                    gpuSpec.textContent = 'Not selected';
+                }
+               
+                // Update RAM spec
+                if (ramSelect.value) {
+                    ramSpec.textContent = componentNames[ramSelect.value];
+                } else {
+                    ramSpec.textContent = 'Not selected';
+                }
+               
+                // Update Storage spec
+                if (storageSelect.value) {
+                    storageSpec.textContent = componentNames[storageSelect.value];
+                } else {
+                    storageSpec.textContent = 'Not selected';
+                }
+               
+                // Update Case spec
+                if (caseSelect.value) {
+                    caseSpec.textContent = componentNames[caseSelect.value];
+                    // Update case image
+                    pcPreviewImage.src = caseImages[caseSelect.value] || caseImages['default'];
+                } else {
+                    caseSpec.textContent = 'Not selected';
+                    pcPreviewImage.src = caseImages['default'];
+                }
+               
+                // Update Cooling spec
+                if (coolingSelect.value) {
+                    coolingSpec.textContent = componentNames[coolingSelect.value];
+                } else {
+                    coolingSpec.textContent = 'Not selected';
+                }
+               
+                // Update total price
+                const total = calculateTotal();
+                totalPrice.textContent = `$${total.toLocaleString()}`;
+            }
+           
+            // Add event listeners to all select elements
+            cpuSelect.addEventListener('change', updatePreview);
+            gpuSelect.addEventListener('change', updatePreview);
+            ramSelect.addEventListener('change', updatePreview);
+            storageSelect.addEventListener('change', updatePreview);
+            caseSelect.addEventListener('change', updatePreview);
+            coolingSelect.addEventListener('change', updatePreview);
+           
+            // Build button functionality
+            buildBtn.addEventListener('click', function() {
+                const total = calculateTotal();
+                if (total === 0) {
+                    alert('Please select at least one component to build your PC!');
+                } else {
+                    alert(`Your custom PC has been built!\nTotal Price: $${total.toLocaleString()}\n\nWe'll send you a confirmation email with next steps.`);
+                }
+            });
+           
+            // Initialize the preview
+            updatePreview();
+        });
+    </script>
+</body>
+</html>
+
